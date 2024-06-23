@@ -59,22 +59,24 @@ const SkuHome = () => {
       <div className="grid grid-cols-1 gap-4">
         {skus}
       </div>
-      <button
-            type="submit"
-            onClick={() => getPageData(prevPageLink)}
-            disabled={!prevPageLink}
-            className={`mr-4 focus:outline-none focus:ring focus:ring-violet-300 p-2 rounded-md ${!prevPageLink ? 'text-white bg-gray-500 hover:bg-gray-500 active:bg-gray-500' : 'bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700'}`}
-          >
-            {'<<'}Prev
-          </button>
-          <button
-            type="submit" 
-            onClick={() => getPageData(nextPageLink)}
-            disabled={!nextPageLink}
-            className={`focus:outline-none focus:ring focus:ring-violet-300 p-2 rounded-md ${!nextPageLink ? 'text-white bg-gray-500 hover:bg-gray-500 active:bg-gray-500' : 'bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700'}`}
-          >
-            Next{'>>'}
-          </button>
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          onClick={() => getPageData(prevPageLink)}
+          disabled={!prevPageLink}
+          className={`mr-4 focus:outline-none focus:ring focus:ring-violet-300 p-2 rounded-md ${!prevPageLink ? 'text-white bg-gray-500 hover:bg-gray-500 active:bg-gray-500' : 'bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700'}`}
+        >
+          {'<<'}Prev
+        </button>
+        <button
+          type="submit" 
+          onClick={() => getPageData(nextPageLink)}
+          disabled={!nextPageLink}
+          className={`focus:outline-none focus:ring focus:ring-violet-300 p-2 rounded-md ${!nextPageLink ? 'text-white bg-gray-500 hover:bg-gray-500 active:bg-gray-500' : 'bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700'}`}
+        >
+          Next{'>>'}
+        </button>
+      </div>
     </>
   )
 }

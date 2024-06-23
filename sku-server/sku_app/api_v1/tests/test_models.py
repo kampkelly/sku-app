@@ -35,3 +35,10 @@ class SkuModelTest(TestCase):
         edited_sku = Sku.objects.get(pk=self.sku.pk)
         
         self.assertEqual(edited_sku.medication_name, "Paracetamol")
+
+    def test_sku_delete(self):
+        sku_count_before = Sku.objects.count()
+        self.sku.delete()
+        sku_count_after = Sku.objects.count()
+        
+        self.assertEqual(sku_count_before - 1, sku_count_after)

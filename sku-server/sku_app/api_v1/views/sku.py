@@ -76,3 +76,13 @@ class SkuDetailAPIView(APIView):
           serializer.save()
           return Response(serializer.data, status=status.HTTP_200_OK)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  def delete(self, request, pk, format=None):
+      """
+      Delete a single SKU by primary key (pk).
+      """
+      sku = Sku.objects.filter(pk=pk).first()
+      if not sku:
+          return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
+      sku.delete()
+      return Response(status=status.HTTP_204_NO_CONTENT)

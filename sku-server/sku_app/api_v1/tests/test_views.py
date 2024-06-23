@@ -62,3 +62,10 @@ class SkuListCreateViewTest(APITestCase):
         self.assertEqual(updated_sku.unit, 15)
         self.assertCountEqual(updated_sku.countries, ['France', 'Spain'])
 
+    def test_delete_sku(self):
+        intial_count = Sku.objects.count()
+        delete_url = reverse('api_v1:sku-detail', kwargs={'pk': self.sku.pk})
+        response = self.client.delete(delete_url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Sku.objects.count(), intial_count - 1)
+
