@@ -29,3 +29,9 @@ class SkuModelTest(TestCase):
         
         self.assertEqual(serializer.data['id'], self.sku.id)
 
+    def test_sku_edit(self):
+        self.sku.medication_name = "Paracetamol"
+        self.sku.save()
+        edited_sku = Sku.objects.get(pk=self.sku.pk)
+        
+        self.assertEqual(edited_sku.medication_name, "Paracetamol")

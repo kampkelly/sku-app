@@ -63,3 +63,16 @@ class SkuDetailAPIView(APIView):
           return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
       serializer = SkuSerializer(sku)
       return Response(serializer.data, status=status.HTTP_200_OK)
+    
+  def put(self, request, pk, format=None):
+      """
+      Update an existing SKU.
+      """
+      sku = Sku.objects.filter(pk=pk).first()
+      if not sku:
+          return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
+      serializer = SkuSerializer(sku, data=request.data, partial=True)
+      if serializer.is_valid():
+          serializer.save()
+          return Response(serializer.data, status=status.HTTP_200_OK)
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

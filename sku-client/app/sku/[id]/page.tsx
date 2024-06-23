@@ -53,7 +53,7 @@ const ViewSku = ({ params }) => {
         <p className="text-gray-600">Countries: {skuData.countries}</p>
 
         <div className="flex justify-center">
-        <Link href={`/sku/edit/${skuData.id}`} className={`mt-4 focus:outline-none focus:ring focus:ring-violet-300 p-1 rounded-md bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700`} passHref>
+        <Link href={`/sku/${skuData.id}/edit`} className={`mt-4 focus:outline-none focus:ring focus:ring-violet-300 p-1 rounded-md bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700`} passHref>
             Edit SKU
         </Link>
       </div>

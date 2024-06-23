@@ -44,3 +44,21 @@ class SkuListCreateViewTest(APITestCase):
         serializer = SkuSerializer(self.sku)
         self.assertEqual(response.data, serializer.data)
 
+    def test_edit_sku(self):
+        edit_data = {
+            'medication_name': 'Paracet',
+            'dose': '300mg',
+            'presentation_unit': 'Injection',
+            'unit': '15',
+            'countries': ['France', 'Spain']
+        }
+        edit_url = reverse('api_v1:sku-detail', kwargs={'pk': self.sku.pk})
+        response = self.client.put(edit_url, edit_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        updated_sku = Sku.objects.get(pk=self.sku.pk)
+        self.assertEqual(updated_sku.medication_name, 'Paracet')
+        self.assertEqual(updated_sku.dose, '300mg')
+        self.assertEqual(updated_sku.presentation_unit, 'Injection')
+        self.assertEqual(updated_sku.unit, 15)
+        self.assertCountEqual(updated_sku.countries, ['France', 'Spain'])
+
