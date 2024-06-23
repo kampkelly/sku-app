@@ -51,6 +51,11 @@ const SkuHome = () => {
   return (
     <>
       <h2 className="text-lg text-center underline mt-3 mb-3">List of Skus</h2>
+      <div className="flex justify-center">
+        <Link href={`/sku/create`} className={`mr-4 focus:outline-none focus:ring focus:ring-violet-300 p-2 rounded-md bg-violet-500 text-white hover:bg-violet-600 active:bg-violet-700`} passHref>
+            Add SKU
+        </Link>
+      </div>
       <div className="grid grid-cols-1 gap-4">
         {skus}
       </div>

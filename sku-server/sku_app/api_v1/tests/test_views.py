@@ -19,3 +19,15 @@ class SkuListCreateViewTest(APITestCase):
         response = self.client.get(self.url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data.get('results')), 1)
+
+    def test_create_sku(self):
+        data = {
+            'medication_name': 'New Medication',
+            'dose': '200mg',
+            'presentation_unit': 'Capsule',
+            'unit': '20',
+            'countries': ['UK', 'Germany']
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Sku.objects.count(), 2)
