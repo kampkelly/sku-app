@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { skuConstant } from '../../../constants';
 
-const CreateSku = ({ params }) => {
+const CreateSku = () => {
   const router = useRouter();
   const [medicationName, setMedicationName] = useState('');
   const [unit, setUnit] = useState('');

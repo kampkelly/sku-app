@@ -1,5 +1,6 @@
 from django.test import TestCase
 from api_v1.models.sku import Sku
+from api_v1.serializers.sku import SkuSerializer
 
 class SkuModelTest(TestCase):
     def setUp(self):
@@ -21,3 +22,10 @@ class SkuModelTest(TestCase):
         self.assertEqual(self.sku.presentation_unit, "Tablet")
         self.assertEqual(self.sku.unit, 10)
         self.assertEqual(self.sku.countries, ["USA", "Canada"])
+    
+    def test_sku_retrieve(self):
+        sku = Sku.objects.get(pk=self.sku.pk)
+        serializer = SkuSerializer(sku)
+        
+        self.assertEqual(serializer.data['id'], self.sku.id)
+

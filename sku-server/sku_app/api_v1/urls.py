@@ -10,5 +10,6 @@ router = routers.SimpleRouter()
 
 urlpatterns = [
     path('sku', sku.SkuListCreateAPIView.as_view(), name='sku-list'),
+    path('sku/<int:pk>', sku.SkuDetailAPIView.as_view(), name='sku-detail'),
 ]
 urlpatterns += router.urls

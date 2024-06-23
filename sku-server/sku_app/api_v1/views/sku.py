@@ -52,3 +52,14 @@ class SkuListCreateAPIView(APIView):
           serializer.save()
           return Response(serializer.data, status=status.HTTP_201_CREATED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SkuDetailAPIView(APIView):
+  def get(self, request, pk, format=None):
+      """
+      Return a single SKU by primary key (pk).
+      """
+      sku = Sku.objects.filter(pk=pk).first()
+      if not sku:
+          return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
+      serializer = SkuSerializer(sku)
+      return Response(serializer.data, status=status.HTTP_200_OK)

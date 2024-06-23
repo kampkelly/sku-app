@@ -1,7 +1,10 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+
 from api_v1.models.sku import Sku
+from api_v1.serializers.sku import SkuSerializer
+
 
 class SkuListCreateViewTest(APITestCase):
     def setUp(self):
@@ -31,3 +34,13 @@ class SkuListCreateViewTest(APITestCase):
         response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Sku.objects.count(), 2)
+
+    def test_retrieve_sku(self):
+        retrieve_url = reverse('api_v1:sku-detail', kwargs={'pk': self.sku.pk})
+        
+        response = self.client.get(retrieve_url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        serializer = SkuSerializer(self.sku)
+        self.assertEqual(response.data, serializer.data)
+
