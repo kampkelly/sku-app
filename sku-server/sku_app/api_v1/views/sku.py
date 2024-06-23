@@ -7,9 +7,9 @@ from api_v1.models.sku import Sku
 from api_v1.serializers.sku import SkuSerializer
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 1
+    page_size = 5
     page_query_param = 'page'
-    max_page_size = 1
+    max_page_size = 5
 
     def get_paginated_response(self, data):
         '''

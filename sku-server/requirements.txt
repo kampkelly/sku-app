@@ -3,3 +3,6 @@ Django
 psycopg2
 python-dotenv
 django-cors-headers
+pyyaml
+inflection
+uritemplate
