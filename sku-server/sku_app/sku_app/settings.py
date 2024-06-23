@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api_v1.apps.ApiV1Config'
+    'api_v1.apps.ApiV1Config',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -54,12 +55,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    os.getenv('FRONTEND_URL'),
+]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_VERSION': 'api_v1',
     'ALLOWED_VERSIONS': ['api_v1'],
+    'VERSION_PARAM': 'version',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 1,
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 ROOT_URLCONF = 'sku_app.urls'

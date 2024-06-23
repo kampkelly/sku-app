@@ -15,8 +15,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import path, include
+from rest_framework.schemas import get_schema_view
+from rest_framework.urlpatterns import format_suffix_patterns
+
+
+schema_url_patterns = [
+    path('api_v1/', include('api_v1.urls')),
+]
+
+schema_view = get_schema_view(
+    title="Sku App",
+    description="API to manage SKUs",
+    version="1.0.0",
+    patterns=schema_url_patterns,
+)
+
+from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api_v1/', include('api_v1.urls', namespace='api_v1')),
+    path('api_v1/openapi', schema_view),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns, suffix_required=False, allowed=['json'])
