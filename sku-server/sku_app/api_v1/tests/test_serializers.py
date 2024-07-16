@@ -2,6 +2,7 @@ from django.test import TestCase
 from api_v1.serializers.sku import SkuSerializer
 from api_v1.models.sku import Sku
 
+
 class SkuSerializerTest(TestCase):
     def setUp(self):
         self.sku_data = {
@@ -16,7 +17,8 @@ class SkuSerializerTest(TestCase):
 
     def test_contains_expected_fields(self):
         data = self.serializer.data
-        self.assertTrue(set(['medication_name', 'dose', 'presentation_unit', 'unit', 'countries']).issubset(data.keys()))
+        self.assertTrue(
+            set(['medication_name', 'dose', 'presentation_unit', 'unit', 'countries']).issubset(data.keys()))
 
     def test_field_content(self):
         data = self.serializer.data

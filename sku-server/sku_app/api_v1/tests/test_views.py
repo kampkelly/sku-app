@@ -37,10 +37,10 @@ class SkuListCreateViewTest(APITestCase):
 
     def test_retrieve_sku(self):
         retrieve_url = reverse('api_v1:sku-detail', kwargs={'pk': self.sku.pk})
-        
+
         response = self.client.get(retrieve_url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        
+
         serializer = SkuSerializer(self.sku)
         self.assertEqual(response.data, serializer.data)
 
@@ -68,4 +68,3 @@ class SkuListCreateViewTest(APITestCase):
         response = self.client.delete(delete_url, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Sku.objects.count(), intial_count - 1)
-

@@ -38,3 +38,10 @@ next-env.d.ts
 
 **/venv
 **/__pycache__/
+
+# Pycharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace

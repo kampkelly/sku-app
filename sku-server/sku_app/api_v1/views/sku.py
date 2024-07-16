@@ -6,6 +6,7 @@ from rest_framework.pagination import PageNumberPagination
 from api_v1.models.sku import Sku
 from api_v1.serializers.sku import SkuSerializer
 
+
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 5
     page_query_param = 'page'
@@ -24,11 +25,13 @@ class StandardResultsSetPagination(PageNumberPagination):
             'results': data
         })
 
+
 class SkuListCreateAPIView(APIView):
     '''
     Views for list and create
     '''
     pagination_class = StandardResultsSetPagination
+
     def get(self, request, pk=None, format=None):
         """
         Return a list of all SKUs
@@ -42,47 +45,48 @@ class SkuListCreateAPIView(APIView):
 
         serializer = SkuSerializer(skus, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-      
+
     def post(self, request, format=None):
-      """
-      Create a new SKU.
-      """
-      serializer = SkuSerializer(data=request.data)
-      if serializer.is_valid():
-          serializer.save()
-          return Response(serializer.data, status=status.HTTP_201_CREATED)
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        """
+        Create a new SKU.
+        """
+        serializer = SkuSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SkuDetailAPIView(APIView):
-  def get(self, request, pk, format=None):
-      """
-      Return a single SKU by primary key (pk).
-      """
-      sku = Sku.objects.filter(pk=pk).first()
-      if not sku:
-          return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
-      serializer = SkuSerializer(sku)
-      return Response(serializer.data, status=status.HTTP_200_OK)
-    
-  def put(self, request, pk, format=None):
-      """
-      Update an existing SKU.
-      """
-      sku = Sku.objects.filter(pk=pk).first()
-      if not sku:
-          return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
-      serializer = SkuSerializer(sku, data=request.data, partial=True)
-      if serializer.is_valid():
-          serializer.save()
-          return Response(serializer.data, status=status.HTTP_200_OK)
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, pk, format=None):
+        """
+        Return a single SKU by primary key (pk).
+        """
+        sku = Sku.objects.filter(pk=pk).first()
+        if not sku:
+            return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SkuSerializer(sku)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-  def delete(self, request, pk, format=None):
-      """
-      Delete a single SKU by primary key (pk).
-      """
-      sku = Sku.objects.filter(pk=pk).first()
-      if not sku:
-          return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
-      sku.delete()
-      return Response(status=status.HTTP_204_NO_CONTENT)
+    def put(self, request, pk, format=None):
+        """
+        Update an existing SKU.
+        """
+        sku = Sku.objects.filter(pk=pk).first()
+        if not sku:
+            return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SkuSerializer(sku, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        """
+        Delete a single SKU by primary key (pk).
+        """
+        sku = Sku.objects.filter(pk=pk).first()
+        if not sku:
+            return Response({'error': 'SKU not found'}, status=status.HTTP_404_NOT_FOUND)
+        sku.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
